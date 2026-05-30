@@ -14,7 +14,140 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      favorites: {
+        Row: {
+          created_at: string
+          id: string
+          meal_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          meal_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          meal_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "favorites_meal_id_fkey"
+            columns: ["meal_id"]
+            isOneToOne: false
+            referencedRelation: "meals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      meal_plans: {
+        Row: {
+          created_at: string
+          id: string
+          plan: Json
+          updated_at: string
+          user_id: string
+          week_start: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          plan?: Json
+          updated_at?: string
+          user_id: string
+          week_start: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          plan?: Json
+          updated_at?: string
+          user_id?: string
+          week_start?: string
+        }
+        Relationships: []
+      }
+      meals: {
+        Row: {
+          calories: number | null
+          created_at: string
+          description: string | null
+          id: string
+          ingredients: Json
+          instructions: string | null
+          meal_type: string | null
+          prep_minutes: number | null
+          tags: string[]
+          title: string
+          user_id: string
+        }
+        Insert: {
+          calories?: number | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          ingredients?: Json
+          instructions?: string | null
+          meal_type?: string | null
+          prep_minutes?: number | null
+          tags?: string[]
+          title: string
+          user_id: string
+        }
+        Update: {
+          calories?: number | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          ingredients?: Json
+          instructions?: string | null
+          meal_type?: string | null
+          prep_minutes?: number | null
+          tags?: string[]
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          allergies: string[]
+          avatar_url: string | null
+          created_at: string
+          daily_calories: number
+          dietary_preferences: string[]
+          display_name: string | null
+          household_size: number
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          allergies?: string[]
+          avatar_url?: string | null
+          created_at?: string
+          daily_calories?: number
+          dietary_preferences?: string[]
+          display_name?: string | null
+          household_size?: number
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          allergies?: string[]
+          avatar_url?: string | null
+          created_at?: string
+          daily_calories?: number
+          dietary_preferences?: string[]
+          display_name?: string | null
+          household_size?: number
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
