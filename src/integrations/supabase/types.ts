@@ -43,6 +43,39 @@ export type Database = {
           },
         ]
       }
+      household_invites: {
+        Row: {
+          created_at: string
+          created_by: string
+          expires_at: string
+          household_id: string
+          id: string
+          token: string
+          used_at: string | null
+          used_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          expires_at?: string
+          household_id: string
+          id?: string
+          token: string
+          used_at?: string | null
+          used_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          expires_at?: string
+          household_id?: string
+          id?: string
+          token?: string
+          used_at?: string | null
+          used_by?: string | null
+        }
+        Relationships: []
+      }
       meal_plans: {
         Row: {
           created_at: string
@@ -120,6 +153,7 @@ export type Database = {
           daily_calories: number
           dietary_preferences: string[]
           display_name: string | null
+          household_id: string
           household_size: number
           id: string
           updated_at: string
@@ -131,6 +165,7 @@ export type Database = {
           daily_calories?: number
           dietary_preferences?: string[]
           display_name?: string | null
+          household_id?: string
           household_size?: number
           id: string
           updated_at?: string
@@ -142,6 +177,7 @@ export type Database = {
           daily_calories?: number
           dietary_preferences?: string[]
           display_name?: string | null
+          household_id?: string
           household_size?: number
           id?: string
           updated_at?: string
