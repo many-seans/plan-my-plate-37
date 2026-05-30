@@ -57,6 +57,7 @@ function JoinPage() {
     setBusy(true);
     try {
       await accept({ data: { token } });
+      if (typeof window !== "undefined") sessionStorage.removeItem("pendingInvite");
       toast.success("Joined household");
       navigate({ to: "/dashboard" });
     } catch (e: any) {
