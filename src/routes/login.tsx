@@ -23,20 +23,26 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  function postAuthPath() {
+    if (typeof window === "undefined") return "/dashboard";
+    const token = sessionStorage.getItem("pendingInvite");
+    return token ? `/join/${token}` : "/dashboard";
+  }
+
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error) { toast.error(error.message); return; }
-    navigate({ to: "/dashboard" });
+    window.location.assign(postAuthPath());
   }
 
   async function googleSignIn() {
-    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin + "/dashboard" });
+    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin + postAuthPath() });
     if (result.error) { toast.error((result.error as Error).message ?? "Google sign-in failed"); return; }
     if (result.redirected) return;
-    navigate({ to: "/dashboard" });
+    window.location.assign(postAuthPath());
   }
 
   return (

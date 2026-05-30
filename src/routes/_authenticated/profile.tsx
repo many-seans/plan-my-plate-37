@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
-import { LogOut, Heart } from "lucide-react";
+import { LogOut, Heart, Users } from "lucide-react";
 import { getProfile, updateProfile } from "@/lib/profile.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -110,13 +110,16 @@ function Profile() {
         <Button onClick={onSave} className="w-full rounded-full">Save profile</Button>
 
         <div className="grid grid-cols-2 gap-3 pt-2">
+          <Button variant="outline" className="rounded-full" onClick={() => navigate({ to: "/household" })}>
+            <Users className="mr-2 h-4 w-4" /> Household
+          </Button>
           <Button variant="outline" className="rounded-full" onClick={() => navigate({ to: "/favorites" })}>
             <Heart className="mr-2 h-4 w-4" /> Favourites
           </Button>
-          <Button variant="outline" className="rounded-full" onClick={logout}>
-            <LogOut className="mr-2 h-4 w-4" /> Log out
-          </Button>
         </div>
+        <Button variant="outline" className="w-full rounded-full" onClick={logout}>
+          <LogOut className="mr-2 h-4 w-4" /> Log out
+        </Button>
       </div>
     </div>
   );
