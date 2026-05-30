@@ -14,9 +14,11 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as JoinTokenRouteImport } from './routes/join.$token'
 import { Route as AuthenticatedShoppingRouteImport } from './routes/_authenticated/shopping'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
+import { Route as AuthenticatedHouseholdRouteImport } from './routes/_authenticated/household'
 import { Route as AuthenticatedGenerateRouteImport } from './routes/_authenticated/generate'
 import { Route as AuthenticatedFavoritesRouteImport } from './routes/_authenticated/favorites'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
@@ -45,6 +47,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const JoinTokenRoute = JoinTokenRouteImport.update({
+  id: '/join/$token',
+  path: '/join/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedShoppingRoute = AuthenticatedShoppingRouteImport.update({
   id: '/shopping',
   path: '/shopping',
@@ -58,6 +65,11 @@ const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
 const AuthenticatedPlannerRoute = AuthenticatedPlannerRouteImport.update({
   id: '/planner',
   path: '/planner',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedHouseholdRoute = AuthenticatedHouseholdRouteImport.update({
+  id: '/household',
+  path: '/household',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedGenerateRoute = AuthenticatedGenerateRouteImport.update({
@@ -84,9 +96,11 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/favorites': typeof AuthenticatedFavoritesRoute
   '/generate': typeof AuthenticatedGenerateRoute
+  '/household': typeof AuthenticatedHouseholdRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/shopping': typeof AuthenticatedShoppingRoute
+  '/join/$token': typeof JoinTokenRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -96,9 +110,11 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/favorites': typeof AuthenticatedFavoritesRoute
   '/generate': typeof AuthenticatedGenerateRoute
+  '/household': typeof AuthenticatedHouseholdRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/shopping': typeof AuthenticatedShoppingRoute
+  '/join/$token': typeof JoinTokenRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -110,9 +126,11 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/favorites': typeof AuthenticatedFavoritesRoute
   '/_authenticated/generate': typeof AuthenticatedGenerateRoute
+  '/_authenticated/household': typeof AuthenticatedHouseholdRoute
   '/_authenticated/planner': typeof AuthenticatedPlannerRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/shopping': typeof AuthenticatedShoppingRoute
+  '/join/$token': typeof JoinTokenRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -124,9 +142,11 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/favorites'
     | '/generate'
+    | '/household'
     | '/planner'
     | '/profile'
     | '/shopping'
+    | '/join/$token'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -136,9 +156,11 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/favorites'
     | '/generate'
+    | '/household'
     | '/planner'
     | '/profile'
     | '/shopping'
+    | '/join/$token'
   id:
     | '__root__'
     | '/'
@@ -149,9 +171,11 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/favorites'
     | '/_authenticated/generate'
+    | '/_authenticated/household'
     | '/_authenticated/planner'
     | '/_authenticated/profile'
     | '/_authenticated/shopping'
+    | '/join/$token'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -160,6 +184,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SignupRoute: typeof SignupRoute
+  JoinTokenRoute: typeof JoinTokenRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -199,6 +224,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/join/$token': {
+      id: '/join/$token'
+      path: '/join/$token'
+      fullPath: '/join/$token'
+      preLoaderRoute: typeof JoinTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/shopping': {
       id: '/_authenticated/shopping'
       path: '/shopping'
@@ -218,6 +250,13 @@ declare module '@tanstack/react-router' {
       path: '/planner'
       fullPath: '/planner'
       preLoaderRoute: typeof AuthenticatedPlannerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/household': {
+      id: '/_authenticated/household'
+      path: '/household'
+      fullPath: '/household'
+      preLoaderRoute: typeof AuthenticatedHouseholdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/generate': {
@@ -248,6 +287,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedFavoritesRoute: typeof AuthenticatedFavoritesRoute
   AuthenticatedGenerateRoute: typeof AuthenticatedGenerateRoute
+  AuthenticatedHouseholdRoute: typeof AuthenticatedHouseholdRoute
   AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedShoppingRoute: typeof AuthenticatedShoppingRoute
@@ -257,6 +297,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedFavoritesRoute: AuthenticatedFavoritesRoute,
   AuthenticatedGenerateRoute: AuthenticatedGenerateRoute,
+  AuthenticatedHouseholdRoute: AuthenticatedHouseholdRoute,
   AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedShoppingRoute: AuthenticatedShoppingRoute,
@@ -271,7 +312,18 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SignupRoute: SignupRoute,
+  JoinTokenRoute: JoinTokenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
